@@ -1,9 +1,9 @@
 /* ==========================================================================
-   CSS ARCHITECTURE: TEAM ATLETICS "ANTIGRAVITY" V4 (MOBILE-FIRST)
+   CSS ARCHITECTURE: TEAM ATLETICS "ANTIGRAVITY" V5 (MOBILE-FIRST)
    ========================================================================== */
 
 :root {
-  /* V4 Colors - Deep Matte Navy */
+  /* V5 Colors - Deep Matte Navy */
   --bg-navy: #0A1128;
   --bg-navy-light: #121A3B;
   --bg-glass: rgba(18, 26, 59, 0.4);
@@ -87,10 +87,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
   padding: 0.4em 1.2em; border-radius: 4px; margin-bottom: 1rem; background: rgba(0, 240, 255, 0.05);
 }
 
-/* 
- * Tech Fix 2: Standard CTA Buttons 
- * target="_blank" solved in HTML. Hover `translateY(-4px)` with shadow fixed here.
- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   gap: 0.75rem; font-family: var(--font-headings); font-weight: 800;
@@ -103,7 +99,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
 .btn-primary { background-color: var(--text-main); color: var(--bg-navy); border: none; }
 .btn-shadow { box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 
-/* V4 required specific hover override (-4px instead of abstract/different) */
 .btn-primary:active { transform: scale(0.95); }
 @media (min-width: 1025px) {
   .btn-primary:hover {
@@ -175,20 +170,20 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
 }
 
 /* ==========================================================================
-   HERO SECTION (Split) & Tech Fix 1
+   HERO SECTION (Split)
    ========================================================================== */
 .hero-split { display: flex; flex-direction: column; min-height: 100vh; padding-top: var(--nav-height); }
 .hero-text-col { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 5%; text-align: center; position: relative; z-index: 10; }
 
 .hero-title { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.1; }
-/* Tech Fix 1: Independent Titles */
 .mobile-title { display: block; }
 .desktop-title { display: none; }
 
 .hero-subtitle { margin-left: auto; margin-right: auto; margin-bottom: 2rem; }
 .hero-visual-col { height: 40vh; position: relative; width: 100%; }
-.visual-wrapper { width: 100%; height: 100%; position: relative; }
+.visual-wrapper { width: 100%; height: 100%; position: relative; overflow: hidden; }
 .hero-media { width: 100%; height: 100%; object-fit: cover; }
+.hero-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.45; filter: blur(3px) brightness(0.8); transform: scale(1.05); }
 .media-overlay-gradient { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(0deg, var(--bg-navy) 0%, transparent 60%); }
 .scroll-down-icon { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: var(--text-muted); animation: bounce 2s infinite; z-index: 10; }
 @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
@@ -235,7 +230,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
    ========================================================================== */
 .app-section { padding: var(--padding-section) 0; background: linear-gradient(to bottom, var(--bg-navy), #060a18); overflow: hidden; }
 .app-container-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
-.app-visual { order: -1; position: relative; } /* Mobile: Image goes first */
+.app-visual { order: -1; position: relative; } 
 .app-content { text-align: center; }
 @media (min-width: 1024px) {
   .app-container-grid { grid-template-columns: 1.2fr 0.8fr; gap: 6rem; }
@@ -250,7 +245,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
 .app-feature-text strong { display: block; font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.2rem; }
 .app-feature-text span { font-size: 0.9rem; color: var(--text-muted); }
 
-/* Mockup CSS */
 .phone-mockup {
   position: relative; width: 100%; max-width: 280px; margin: 0 auto; aspect-ratio: 9/19;
   border-radius: 40px; background: #000; border: 12px solid #1a1a24;
@@ -260,10 +254,29 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
 .phone-mockup::before {
   content: ''; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
   width: 120px; height: 25px; background: #1a1a24; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
-  z-index: 10; /* The notch */
+  z-index: 10; 
 }
 .phone-frame { width: 100%; height: 100%; border-radius: 28px; overflow: hidden; position: relative; }
-.app-iframe { width: 100%; height: 100%; border: none; background: #fff; }
+
+/* Custom Native App UI Mockup */
+.app-ui { width: 100%; height: 100%; background: #0A0A0A; padding: 2.5rem 1.2rem 1rem; display: flex; flex-direction: column; color: #fff; font-family: var(--font-body); }
+.app-ui-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.app-ui-avatar { width: 45px; height: 45px; border-radius: 50%; background: var(--bg-navy-light); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent-primary); border: 1px solid var(--border-glass);}
+.app-ui-welcome { display: flex; flex-direction: column; }
+.app-ui-welcome span { font-size: 0.8rem; color: var(--text-muted); }
+.app-ui-welcome strong { font-size: 1.1rem; font-weight: 700; }
+.app-ui-card { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(0, 0, 0, 0)); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; box-shadow: 0 10px 20px rgba(0, 240, 255, 0.05);}
+.app-ui-card i { font-size: 2rem; color: var(--accent-primary); }
+.app-ui-card span { font-size: 0.8rem; color: var(--text-muted); }
+.app-ui-card strong { font-size: 1.2rem; font-weight: 800; font-family: var(--font-headings); letter-spacing: 0.05em; }
+.app-ui-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: auto; }
+.stat-box { background: #111; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+.stat-box strong { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.stat-box span { font-size: 1.4rem; font-weight: 700; color: #fff; margin-top: 0.2rem; }
+.app-ui-btn { background: var(--accent-primary); color: #000; text-align: center; padding: 1rem; border-radius: 100px; font-weight: 800; font-family: var(--font-headings); letter-spacing: 0.05em; margin-bottom: 1.5rem; font-size: 0.95rem; box-shadow: 0 8px 15px rgba(0, 240, 255, 0.3);}
+.app-ui-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0.5rem 0.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+.app-ui-nav i { font-size: 1.6rem; color: var(--text-muted); }
+.app-ui-nav i.active { color: var(--accent-primary); }
 .phone-glare {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 40%);
@@ -308,66 +321,69 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-headings); line-height: 1.1; te
 }
 
 /* ==========================================================================
-   SUCCESS CASES SECTION (Tech Fix 3: Pure CSS Scroll Snap)
+   SUCCESS CASES SECTION (SwiperJS Infinite with Buttons)
    ========================================================================== */
 .success-section { padding: var(--padding-section) 0; overflow: hidden; }
 
-.css-carousel {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  gap: 1.5rem;
-  padding-bottom: 2rem;
-  -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
-  /* Hide scrollbar for cleaner look */
-  scrollbar-width: none; /* Firefox */
-}
-.css-carousel::-webkit-scrollbar { display: none; /* WebKit */ }
-
-.carousel-item {
-  scroll-snap-align: center;
-  flex: 0 0 85%; /* 85% width on mobile, shows a peek of the next card */
-  display: flex;
-}
-
-@media (min-width: 768px) { .carousel-item { flex: 0 0 45%; } }
-@media (min-width: 1024px) { .carousel-item { flex: 0 0 30%; scroll-snap-align: start; gap: 2.5rem; } }
-
-.success-card { width: 100%; display: flex; flex-direction: column; }
+.success-swiper { width: 100%; padding-bottom: 4rem; /* space for pagination */ }
+.success-swiper .swiper-slide { height: auto; }
+.success-card { height: 100%; display: flex; flex-direction: column; background: var(--bg-navy-light); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.05); }
 .success-img-wrapper { position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; line-height: 0; box-shadow: 0 10px 20px rgba(0,0,0,0.3); aspect-ratio: 4/5; }
 .success-img { width: 100%; height: 100%; object-fit: cover; }
 .overlay-tag { position: absolute; top: 1rem; left: 1rem; background: rgba(10,17,40,0.8); backdrop-filter: blur(8px); padding: 0.4rem 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); font-family: var(--font-headings); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; }
+.success-info { display: flex; flex-direction: column; flex-grow: 1; }
 .success-info h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-.testimonial-quote { font-size: 0.95rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.8rem; line-height: 1.5; }
+.testimonial-quote { font-size: 0.95rem; color: var(--text-muted); font-style: italic; margin-bottom: auto; padding-bottom: 1rem; line-height: 1.5; }
 .student-name { font-family: var(--font-headings); font-size: 0.75rem; font-weight: 700; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.05em; }
 
+/* Swiper Controls Config */
+.swiper-pagination-bullet { background: var(--text-main); opacity: 0.3; }
+.swiper-pagination-bullet-active { background: var(--accent-primary); opacity: 1; }
+.swiper-button-next, .swiper-button-prev { color: var(--text-main); transform: scale(0.6); top: auto; bottom: 0; }
+.swiper-button-next { right: 35%; }
+.swiper-button-prev { left: 35%; }
+
+@media (min-width: 768px) {
+  .swiper-button-next { right: 42%; }
+  .swiper-button-prev { left: 42%; }
+}
 @media (min-width: 1024px) {
   .success-img-wrapper { aspect-ratio: auto; height: 500px; border-radius: 16px; margin-bottom: 2rem; }
   .success-info h4 { font-size: 1.25rem; margin-bottom: 1rem; }
-  .testimonial-quote { font-size: 1.1rem; margin-bottom: 1rem; }
+  .testimonial-quote { font-size: 1.1rem; margin-bottom: 1.5rem; }
   .student-name { font-size: 0.85rem; }
   .overlay-tag { top: 1.5rem; left: 1.5rem; font-size: 0.7rem; padding: 0.5rem 1rem; }
+  
+  .swiper-button-next { right: 46%; }
+  .swiper-button-prev { left: 46%; }
 }
 
 /* ==========================================================================
-   INSTAGRAM COMMUNITY SECTION
+   INSTAGRAM COMMUNITY SECTION (Small Chips)
    ========================================================================== */
 .ig-community-section { padding: var(--padding-section) 0; background: var(--bg-navy-light); }
 .ig-header { margin-bottom: 3rem; }
-.ig-cards-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-.ig-card { position: relative; display: flex; align-items: flex-end; justify-content: space-between; height: 250px; border-radius: 16px; overflow: hidden; padding: 1.5rem; text-decoration: none; color: var(--text-main); border: 1px solid var(--border-glass); }
-.ig-card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 0; transition: transform 0.6s var(--ease-expo); }
-.coach-ig-bg { background: linear-gradient(135deg, #121A3B, #001033); }
-.team-ig-bg { background: linear-gradient(135deg, #0A1128, #1A2548); }
-.ig-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(10,17,40,0.9) 0%, rgba(10,17,40,0.3) 50%, transparent 100%); z-index: 1; }
-@media (min-width: 1025px) { .ig-card:hover .ig-card-bg { transform: scale(1.05); } .ig-card:hover .ig-arrow { transform: translate(5px, -5px); color: var(--accent-primary); } }
-.ig-card-content { display: flex; align-items: center; gap: 1rem; position: relative; z-index: 2; width: 100%; }
-.ig-icon { font-size: 2rem; color: #E1306C; }
-.ig-handle { font-size: 1.1rem; font-family: var(--font-headings); font-weight: 700; margin-bottom: 0.2rem; }
-.ig-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.3; }
-.ig-arrow { position: relative; z-index: 2; font-size: 1.5rem; transition: transform 0.3s; }
-@media (min-width: 768px) { .ig-cards-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } .ig-card { height: 350px; padding: 2rem; } .ig-handle { font-size: 1.3rem; } .ig-desc { font-size: 0.95rem; } }
+.ig-chips-container {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.5rem; margin-top: 2rem;
+}
+.community-chip {
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+  padding: 1rem 2rem; border-radius: 100px; background: rgba(255,255,255,0.05);
+  font-family: var(--font-headings); font-weight: 700; font-size: 1rem; color: var(--text-main);
+  border: 1px solid var(--border-glass); transition: all 0.4s var(--ease-expo);
+}
+.community-chip i { font-size: 1.5rem; color: #E1306C; } /* IG Brand Color */
+@media (min-width: 768px) {
+  .ig-chips-container { flex-direction: row; gap: 2rem; }
+  .community-chip { padding: 1.2rem 2.5rem; font-size: 1.1rem; }
+}
+@media (min-width: 1025px) {
+  .community-chip:hover {
+    background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);
+    transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+}
 
 /* ==========================================================================
    MINIMAL FOOTER & FINAL CTA
