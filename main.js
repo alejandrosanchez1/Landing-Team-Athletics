@@ -1,6 +1,6 @@
 /**
- * Team Atletics V3 - Main JavaScript
- * Mobile-First Interactions, SwiperJS, and Scroll Animations
+ * Team Atletics V4 - Main JavaScript
+ * Mobile-First Interactions and Scroll Animations
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
             
-            // Toggle icon
             const icon = mobileBtn.querySelector('i');
             if (mobileMenu.classList.contains('active')) {
                 icon.classList.replace('ph-list', 'ph-x');
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // Close menu when clicking a link
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
@@ -32,38 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Initialize SwiperJS Carousel for Success Cases
-    const swiper = new Swiper('.success-swiper', {
-        // Mobile-first defaults
-        slidesPerView: 1.15, // Peeking edge of next slide
-        spaceBetween: 20,
-        grabCursor: true,
-        
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        
-        // Responsive breakpoints
-        breakpoints: {
-            768: {
-                slidesPerView: 2.2,
-                spaceBetween: 30,
-            },
-            1024: {
-                slidesPerView: 3.5, // To create the asymmetric feeling on desktop
-                spaceBetween: 40,
-            }
-        }
-    });
-
-    // 3. Initialize Lenis (Smooth Scroll)
-    // Disabled smoothTouch so mobile feels 100% native while desktop is buttery smooth
+    // 2. Initialize Lenis (Smooth Scroll)
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
@@ -71,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gestureDirection: 'vertical',
         smooth: true,
         mouseMultiplier: 1,
-        smoothTouch: false,
+        smoothTouch: false, // Ensures native smooth/swipe scrolling on touch devices
         touchMultiplier: 2,
         infinite: false,
     });
@@ -80,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
 
-    // 4. Custom Cursor Logic (Desktop Only)
+    // 3. Custom Cursor Logic (Desktop Only)
     if (window.innerWidth > 1024) {
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
@@ -107,14 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         animateCursor();
 
-        const hoverElements = document.querySelectorAll('a, button, .v2-card, .success-card, .ig-card');
+        const hoverElements = document.querySelectorAll('a, button, .v2-card, .success-card, .ig-card, .compact-card');
         hoverElements.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
     }
 
-    // 5. Navbar scroll effect
+    // 4. Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -126,18 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. GSAP Animations & ScrollTriggers
+    // 5. GSAP Animations & ScrollTriggers
     
     // Initial Hero Sequence
     const tlHero = gsap.timeline();
-    tlHero.fromTo('.hero-title', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.1 })
+    tlHero.fromTo('.hero-title.desktop-title, .hero-title.mobile-title', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.1 })
           .fromTo('.visual-wrapper', { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }, "-=0.6")
           .fromTo('.scroll-down-icon', { opacity: 0 }, { opacity: 1, duration: 1 }, "-=0.2");
 
     // Fade-up Elements
     const fadeUpElements = gsap.utils.toArray('.fade-up');
     fadeUpElements.forEach((el) => {
-        // Avoid double animating hero elements
         if(tlHero.isActive() && (el.classList.contains('hero-title') || el.classList.contains('visual-wrapper'))) return;
 
         let delay = 0;
@@ -152,14 +118,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: delay,
                 scrollTrigger: {
                     trigger: el,
-                    start: 'top 90%', // Triggers slightly earlier on mobile
-                    toggleActions: 'play none none none' // Play once and stay (better performance on mobile)
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
                 }
             }
         );
     });
 
-    // Parallax Elements (Desktop only to save battery/perf on mobile)
+    // Parallax Elements (Desktop only to save perf on mobile)
     if (window.innerWidth > 1024) {
         const parallaxElements = gsap.utils.toArray('.parallax-element');
         parallaxElements.forEach((el) => {
@@ -172,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
 
-        // Interactive Glass Cards Glow
         const cards = document.querySelectorAll('.v2-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
